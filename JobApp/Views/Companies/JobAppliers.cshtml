@@ -1,0 +1,93 @@
+﻿@model IEnumerable<JobApp.Models.ApplyForJob>
+@{
+    ViewBag.Title = "JobAppliers";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+
+}
+
+
+
+<div class="job_listing_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_title">
+                    @*<h4>Job Listing Your Posted</h4>*@
+                </div>
+            </div>
+
+        </div>
+
+        <div class="job_lists">
+            
+            <div class="row">
+                @if (ViewBag.Mess == "no One")
+                {
+                    <h1 style="color:red;">No One Has Applied For This Job</h1>
+                }
+                @foreach (var item in Model)
+                {
+
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+
+                                <div class="jobs_conetent">
+                                    <a href="~/web/jobboard2/job_details.html"><h4></h4></a>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p style="color: black"> Name</p>
+                                            <p style="color: #5e6061">  @Html.DisplayFor(modelItem => item.User.Name)</p>
+                                        </div>
+                                        <div class="location">
+                                            <p style="color: black">Phone</p>
+                                            <p style="color: #5e6061"> @Html.DisplayFor(modelItem => item.User.Phone)</p>
+                                        </div>
+
+                                        <div class="location">
+                                            <p style="color: black">Message</p>
+                                            <p style="color: #5e6061"> @Html.DisplayFor(modelItem => item.Message)</p>
+                                        </div>
+                                        <div class="location">
+                                            <p style="color: black">DateTime</p>
+                                            <p style="color: #5e6061; "> @Html.DisplayFor(modelItem => item.ApplyDate)</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                    <a href="@Url.Action("Download", new { id=item.IDApply})" class="boxed-btn3">DownLoad CV</a>
+                                    @*@{ int a=0;
+                                           foreach (var b in item.ApplyForJob)
+                                           {
+                                               b.IDJob=a;
+
+                                             ViewBag.messsss=b.IDJob;
+                                               ViewBag.ViewBag.messsss.
+
+
+                                                 <a href="#" class="notification"><i class="fa fa-bell w3-text-teal" style="font-size: 30px; color: #0fb6f0;"></i> <span class="badge"></span></a>
+
+                                           }
+                                        }*@
+
+
+
+                                    @*<a href="@Url.Action("JobDetails", "Job", new { id=item.IDJob})" class="boxed-btn3">Details</a>
+                                        </div>
+                                        <div class="date">
+                                            <p>Deadline: @Html.DisplayFor(modelItem => item.Dateline).ToString()</p>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

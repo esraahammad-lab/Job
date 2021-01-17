@@ -1,0 +1,77 @@
+﻿
+
+
+   
+
+    .navbar-default {
+        background-color: #0c5c82;
+        border-color: #e7e7e7;
+        padding-top: 10px;
+    }
+
+    body {
+        padding-top: 100px;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        color: #eeeded /*#e7e7e7*/;
+        font-family: myfont;
+    }
+
+        .navbar-default .navbar-nav > li > a:hover {
+            color: #bdb3b3;
+        }
+
+    .nav > li {
+        position: relative;
+        display: block;
+        /*height: 75px;
+    padding-top: 10px;*/
+    }
+
+    .myfooter {
+        background-color: #5786dc;
+        padding-top: 10px;
+        font-family: myfont;
+        text-align: justify;
+    }
+
+    .subfooter {
+        background-color: #0c5c82;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .myfooter a {
+        color: azure;
+    }
+
+    .myfooter p {
+        color: azure;
+    }
+
+    .myfooter h3, ul, p {
+        margin-bottom: 10px;
+        font-family: myfont2;
+    }
+
+/*<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" id="Close">&times;</span>
+            <h2 style="text-align:left;">Delete</h2>
+        </div>
+        <div class="modal-body">
+            <p style="text-align:left;">? Are you sure you want to delete This </p>
+
+        </div>
+        <div class="modal-footer">
+
+            <button class="button button5 pull-right" style="position: absolute; right: 0;" id="Cancel">Cancel</button>
+            <a href="javascript:;" class="button button4" id="SaveDelete">Delete</a>
+        </div>
+    </div>*/
+

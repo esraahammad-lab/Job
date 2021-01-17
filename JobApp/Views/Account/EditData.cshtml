@@ -1,0 +1,169 @@
+﻿@model JobApp.Models.User
+@{
+    ViewBag.Title = "EditData";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="job_details_header">
+
+                </div>
+                @if (ViewBag.message == "faild")
+                {
+
+                    <p style="color:red;text-align:center;" id="invaild"> Invaild Old Password Try Again</p>
+                }
+
+
+                @using (Html.BeginForm("EditData", "Account", FormMethod.Post, new { id = Model.IDUser }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="apply_job_form white-bg">
+                        <h4 style="text-align: center; color: #0684f3">ُEdit Account</h4>
+                        <div class="section-top-border">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8">
+
+                                    <form action="#">
+                                        <div>
+
+                                        </div>
+                                        <div class="input-group-icon mt-10">
+                                            <div class="icon" style="top:10px;"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                            <input type="text" name="name" value="@Model.Name" placeholder="name" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'name'" required class="single-input">
+                                        </div>
+                                        <div class="input-group-icon mt-10">
+                                            <div class="icon" style="top:10px;"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                                            <input type="text" name="email" value="@Model.Email" placeholder="Email" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Email'" required class="single-input">
+                                        </div>
+                                        <div class="input-group-icon mt-10">
+                                            <div class="icon" style="top:10px;"><i class="fa fa-phone" aria-hidden="true"></i></div>
+                                            <input type="text" name="phone" value="@Model.Phone" placeholder="Phone" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'phone'" required class="single-input">
+                                        </div>
+                                        <div class="input-group-icon mt-10">
+                                            <input hidden id="checkoldpass" value="@Model.Password" />
+                                            <div class="icon" style="top:10px;"><i class=" fa fa-key" aria-hidden="true"></i></div>
+                                            <div class="icon" style="left:520px;top:10px;"><i id="passclose" class=" fa fa-eye" aria-hidden="true"></i></div>
+                                            <div class="icon" style="left:520px;top:10px;"><i id="openpass" class=" fa fa-eye-slash" aria-hidden="true"></i></div>
+                                            <input type="password" required name="oldpassword" id="Oldtxtpass" placeholder="Old Password" onfocus="this.placeholder = ''"
+                                                   oninput="check(this)" onblur="this.placeholder = 'Password'" class="single-input">
+                                        </div>
+                                        <span id='mess'></span>
+
+                                        <div class="input-group-icon mt-10">
+                                            <div class="icon" style="top:10px;"><i class=" fa fa-key" aria-hidden="true"></i></div>
+                                            <div class="icon" style="left:520px;top:10px;"><i id="buclose" class=" fa fa-eye" aria-hidden="true"></i></div>
+                                            <div class="icon" style="left:520px;top:10px;"><i id="open" class=" fa fa-eye-slash" aria-hidden="true"></i></div>
+                                            <input type="password" name="password" id="password" placeholder="New Password" onfocus="this.placeholder = ''"
+                                                   pattern=".{6,}" title="Six or more characters" onblur="this.placeholder = 'Password'" required class="single-input">
+                                        </div>
+
+                                        <div class="input-group-icon mt-10">
+                                            <div class="icon" style="top:10px;"><i class="fa fa-key" aria-hidden="true"></i></div>
+                                            <input type="password" name="conpassword" id="confirm_password" required pattern=".{6,}" title="Six or more characters"
+                                                   placeholder="Confirm Password" onfocus="this.placeholder = ''"
+                                                   oninput="comfir(this)" onblur="this.placeholder = 'Password'" class="single-input">
+                                        </div>
+                                        <span id='message'></span>
+
+                                        <br />
+
+                                        <div class="col-md-12">
+                                            <div class="submit_btn">
+                                                <button class="boxed-btn3 w-100" id="Button1Id" type="submit">Save</button>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $('#buclose').hide();
+    $('#open').click(function () {
+        debugger;
+        $('#password').attr("type", "text")
+        $('#open').hide();
+        $('#buclose').show();
+    });
+
+    $('#buclose').click(function () {
+        $('#password').attr("type", "password")
+        $('#buclose').hide();
+        $('#open').show();
+    });
+    $('#passclose').hide();
+    $('#openpass').click(function () {
+        debugger;
+        $('#Oldtxtpass').attr("type", "text")
+        $('#openpass').hide();
+        $('#passclose').show();
+    });
+
+    $('#passclose').click(function () {
+        $('#Oldtxtpass').attr("type", "password")
+        $('#passclose').hide();
+        $('#openpass').show();
+    });
+
+    $('#password, #confirm_password').on('keyup', function () {
+        if ($('#password').val() == $('#confirm_password').val()) {
+            $('#message').html('Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+        return false;
+    });
+    function comfir(input) {
+        if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+
+        } else {
+
+            input.setCustomValidity('');
+        }
+    }
+
+
+    debugger;
+    function check(input) {
+        if (input.value != document.getElementById('checkoldpass').value) {
+            input.setCustomValidity('Password Must be Matching.');
+            $('#mess').html('Not Matching').css('color', 'red');
+        } else {
+
+            input.setCustomValidity('');
+        }
+    }
+
+    $('#checkoldpass, #Oldtxtpass').on('keyup', function () {
+
+        if ($('#checkoldpass').val() == $('#Oldtxtpass').val()) {
+
+            $('#mess').html('Matching').css('color', 'green');
+        } else
+
+
+            $('#mess').html('Not Matching').css('color', 'red');
+
+        return false;
+    });
+
+
+
+</script>

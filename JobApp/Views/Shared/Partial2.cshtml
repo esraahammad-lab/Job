@@ -1,0 +1,80 @@
+﻿<style>
+    #bhov:hover {
+        background-color: #c6e1fa;
+    }
+</style>
+@if (Session["MeaasgeView"] == "notfirst")
+{
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+        <div class="Appointment">
+            <div class="phone_num d-none d-xl-block">
+                <div class="nav-item dropdown">
+                    <a href="#" onclick="button()">Welcom @Session["na"]</a>
+                    <div class="dropdown-menu" id="menu" style="color:red;">
+                        @*<a href="@Url.Action("EditData", "Home")" id="bhov" style="color: #f68108;" class="dropdown-item">Edit Account</a>*@
+                        <a href="@Url.Action("EditData", "Account")" id="bhov" style="color: #f68108;" class="dropdown-item">Edit Account</a>
+                        @if (Session["TypePub"] == "pub")
+                        {
+
+                            <a href="@Url.Action("Index", "Companies")" id="bhov" style="color: #f68108;" class="dropdown-item">Jobs Posted</a>
+                        }
+
+                        else
+                        {
+                            <a href="@Url.Action("ApplyingJob", "Employee")" id="bhov" style="color: #f68108;" class="dropdown-item">Applied Jobs</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="phone_num d-none d-xl-block">
+                <a href="@Url.Action("logout", "Account")">Log Out</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+        <div class="Appointment">
+            <div class="phone_num d-none d-xl-block">
+                <a href="@Url.Action("login", "Account")">Log in</a>
+            </div>
+            <div class="phone_num d-none d-xl-block">
+                <a href="@Url.Action("Register", "Account")">Register</a>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script>
+    function button() {
+        $("#menu").slideToggle(50);
+
+
+    }
+    $(document).mouseup(function (e) {
+        if ($(e.target).closest("#menu").length
+                    === 0) {
+            $("#menu").hide();
+        }
+    });
+
+    //$(document).mouseup(function (e) {
+    //    var container = $("#menu");
+    //    if (!container.is(e.target) &&
+    //    container.has(e.target).length === 0) {
+    //        container.hide();
+    //    }
+    //});
+
+    //$(document).on("click", function (event) {
+    //    var $trigger = $("#button");
+    //    if ($trigger !== event.target && !$trigger.has(event.target).length) {
+    //        $("#menu").slideUp(50);
+    //    }
+    //});
+</script>
+
+

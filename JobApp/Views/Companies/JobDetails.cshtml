@@ -1,0 +1,178 @@
+﻿@model JobApp.Models.Job
+@{
+    ViewBag.Title = "JobDetails";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Delete Confirmation Modal</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="~/Content/Modal%20Style.css" rel="stylesheet" />
+</head>
+@*<h4 style="text-align:center;color:blue;">
+    @Html.ActionLink("Appliers For Job", "JobAppliers", new { id = Model.IDJob })
+</h4>*@
+
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="job_details_header">
+                    <div class="single_jobs white-bg d-flex justify-content-between">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb">
+                                <img src="~/Uploads/@Model.JobImage" alt="">
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="#"><h4>@Model.JobTitle</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <p> <i class="fa fa-map-marker"></i> @Model.Location</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-clock-o"></i> @Model.JobNature</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-home"></i> @Model.CompanyName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jobs_right">
+                            <div class="apply_now">
+                                <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descript_wrap white-bg">
+                    <div class="single_wrap">
+                        <h4>Job description</h4>
+                        @*<p>@Model.JobContent</p>*@
+                        <p>@Html.Raw(HttpUtility.HtmlDecode(@Model.JobContent).ToString())</p>
+                    </div>
+
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="@Url.Action("JobEdit", "Companies", new { id = Model.IDJob })" class="genric-btn success large">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#myModal" onclick="ModBtn(@Model.IDJob)" data-toggle="modal" title="Delete" class="genric-btn danger large">Delete</a>
+
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="icon-box">
+                                        <i class="material-icons">&#xE5CD;</i>
+                                    </div>
+                                    <h4 class="modal-title">Are you sure?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you really want to delete this job?<br /> This process cannot be undone.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-danger" id="ButtonDelete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* <div id="myModal" class="modal">
+                            <div class="modal-dialog mr-5">
+                                <!-- Modal content -->
+                                <div class="modal-content" style="width:750px;top:100px;right:500px;">
+                                    <div class="modal-header">
+                                        <span class="close" id="Close">&times;</span>
+                                        <h2 style="text-align:center;">Delete</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="text-align:center;"> Are you sure you want to delete This </p>
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button class="button button5 pull-right" style="position: absolute; right: 0;" id="Cancel">Cancel</button>
+                                        <a href="javascript:;" class="genric-btn danger large" id="ButtonDelete">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    *@
+
+                </div>
+
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="job_sumary">
+                    <div class="summery_header">
+                        <h3>Job Summery</h3>
+                    </div>
+                    <div class="job_content">
+                        <ul>
+                            <li>Published on: <span>@Model.publishon.Value.ToShortDateString()</span></li>
+
+                            <li>Salary: <span>@Model.Salary</span></li>
+                            <li>Location: <span>@Model.Location</span></li>
+                            <li>Job Nature: <span> @Model.JobNature</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function ModBtn(id) {
+        debugger;
+        var ID = id;
+
+        $('#myModal').show();
+        $('#Close').click(function () {
+            $('#myModal').hide();
+
+        })
+        $('#Cancel').click(function () {
+            alert('hello');
+            $('#myModal').hide();
+
+        })
+        $('#ButtonDelete').click(function () {
+
+            var val = ID;
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Companies/Delete?id=" + val,
+                success: function () {
+                    debugger;
+                    alert('success');
+                    window.location.href = "/Companies/Index";
+
+                }
+            });
+
+        })
+
+
+    }
+</script>

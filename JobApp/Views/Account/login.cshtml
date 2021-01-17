@@ -1,0 +1,89 @@
+﻿@model JobApp.Models.User
+
+
+
+@{
+    ViewBag.Title = "login";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="job_details_header">
+
+                </div>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+   
+                <div class="apply_job_form white-bg">
+                    <h4 style="text-align: center; color: #0684f3">Log In</h4>
+                    <div class="section-top-border">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8">
+                               
+                                <form action="#">
+                                    <div>
+                                        @if (ViewBag.message == "faild")
+                                        {
+                                            <p style="color:red;text-align:center;"> Invaild Email Or Password Try Again</p>
+                                            
+                                           
+                                        }
+                                    </div>
+                                    <div class="input-group-icon mt-10">
+                                        <div class="icon" style="top:10px;"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                                        <input type="text" name="email" placeholder="Email" onfocus="this.placeholder = ''"
+                                               onblur="this.placeholder = 'Email'" required class="single-input">
+                                    </div>
+                                    <div class="input-group-icon mt-10">
+                                        <div class="icon" style="top:10px;"><i class=" fa fa-key" aria-hidden="true"></i></div>
+                                        <div class="icon" style="left:520px;top:10px;"><i id="buclose" class=" fa fa-eye" aria-hidden="true"></i></div>
+                                        <div class="icon" style="left:520px;top:10px;"><i id="open"  class=" fa fa-eye-slash" aria-hidden="true"></i></div>
+                                        <input type="password" name="password" id="txtpass" placeholder="Password" onfocus="this.placeholder = ''"
+                                               onblur="this.placeholder = 'Password'" required class="single-input">
+                                    </div>
+                                    <br />
+
+                                    <div class="col-md-12">
+                                        <div class="submit_btn">
+                                            <button class="boxed-btn3 w-100"  type="submit">Log In</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+   
+        $('#buclose').hide();
+        $('#open').click(function () {
+            debugger;
+            $('#txtpass').attr("type", "text")
+            $('#open').hide();
+            $('#buclose').show();
+        });
+    
+        $('#buclose').click(function () {
+            $('#txtpass').attr("type", "password")
+            $('#buclose').hide();
+            $('#open').show();
+        });
+
+       
+
+</script>
+

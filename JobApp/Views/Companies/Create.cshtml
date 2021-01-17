@@ -1,0 +1,138 @@
+﻿@model JobApp.Models.Job
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+
+}
+
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="job_details_header">
+                    
+                        </div>
+                        @using (Html.BeginForm("Create", "Companies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                           @Html.AntiForgeryToken()
+                            <div class="apply_job_form white-bg">
+
+                                <h4 style="text-align: center; color: #0684f3">Posted New Job</h4>
+                                <div class="section-top-border">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+
+                                            <form action="#">
+                                                <div class=" mt-10">
+
+                                                    <input type="text" name="JobTitle" placeholder="Job Title" onfocus="this.placeholder = ''"
+                                                           onblur="this.placeholder = 'Job Title'" required class="single-input">
+                                                </div>
+                                               <div class=" mt-10">
+
+                                                   <input type="text" name="CompanyName" value="@Session["na"]" disabled required placeholder="Company Name" onfocus="this.placeholder = ''"
+                                                          onblur="this.placeholder = 'Company Name'" class="single-input">
+                                                </div>
+                                               <div class=" mt-10">
+                                                   <p id="MsgImg" style="color:red;display:none;">Error Message!Please select an image with the correct extension</p>
+                                                   <p id="Msgsize" style="color:red;display:none;">Error Message!Please select an image with the correct size</p>
+
+
+                                                   <input type="file" id="file" name="upload" placeholder="Image" onfocus="this.placeholder = ''"
+                                                          onblur="this.placeholder = 'Image'" required class="single-input">
+                                                </div>
+
+                                                <div class=" mt-10">
+                                                   
+                                                    <textarea id="editor1" name="JobContent" placeholder="Job Content" onfocus="this.placeholder = ''"
+                                                              onblur="this.placeholder = 'Job Title'" required class="single-input"></textarea>
+                                                    
+                                                </div>
+                                               <div class=" mt-10">
+
+                                                    <input type="text" name="Location" placeholder="Location" onfocus="this.placeholder = ''"
+                                                           onblur="this.placeholder = 'Location'" required class="single-input">
+                                                </div>
+                                                <div class=" mt-10">
+
+                                                    <input type="text" name="Salary" placeholder="Salary" onfocus="this.placeholder = ''"
+                                                           onblur="this.placeholder = 'Salary'" required class="single-input">
+                                                </div>
+                                               
+                                                <div class=" mt-10">
+                                                   <span>Deadline</span>
+                                                    <span>
+                                                        <input type="date" name="Dateline" required placeholder="Deadline" onfocus="this.placeholder = ''"
+                                                               onblur="this.placeholder = 'Deadline'" class="single-input">
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div>
+
+                                                            <input name="JobNature" required value="full time" type="radio" /><b style="font-size:25px">&nbsp;&nbsp; Full Time </b><br />
+                                                            <input name="JobNature" required value="part time" type="radio" /><b style="font-size:25px">&nbsp;&nbsp;Part time </b><br />
+
+                                                            <input name="JobNature" required value="temporary" type="radio" /><b style="font-size:25px">&nbsp;&nbsp;Temporary </b><br />
+                                                            <input name="JobNature" required value="freelance" type="radio" /><b style="font-size:25px">&nbsp;&nbsp;Freelance </b><br />
+                                                            <input name="JobNature" required value="intership" type="radio" /><b style="font-size:25px">&nbsp;&nbsp;Intership </b><br />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <br />
+                                                <div class="col-md-12">
+                                                    <div class="submit_btn">
+                                                        <button class="boxed-btn3 w-100" type="submit">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        }
+                  
+            </div>
+                
+                </div>
+    </div>
+</div>
+
+
+<script>
+
+    CKEDITOR.replace('editor1');
+    $("#file").change(function () {
+
+
+        var fileExtension = ['jpeg', 'jpg','svg', 'png', 'gif', 'bmp'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+
+            $('#file').val('');
+            $("#MsgImg").show();
+        }
+        else {
+            $("#MsgImg").hide();
+        }
+       
+
+        var imagesize = document.getElementById("file").files[0].size / 1024 / 1024;
+        if (imagesize > 1) {
+            $('#file').val('');
+            $('#Msgsize').show();
+        }
+        else {
+            $('#Msgsize').hide();
+
+        }
+
+    });
+</script>

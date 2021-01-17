@@ -1,0 +1,141 @@
+﻿
+@model JobApp.Models.Job
+@{
+    ViewBag.Title = "ApplyDetails";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+<br />
+@if (ViewBag.Res == "not Researcher")
+{
+    
+     <br />
+    <h1 style="color:red;text-align:center;"> This Email Is Not Vaild For A Employee</h1><br />
+    <h3 style ="color:black;text-align:center;">This email belongs to a company not a employee</h3>
+    <h3 style="color:black;text-align:center;">If you want to apply for a job , you must log in as a employee</h3><br /><br />
+}
+else{
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="job_details_header">
+                    <div class="single_jobs white-bg d-flex justify-content-between">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb">
+                                <img src="~/Uploads/@Model.JobImage" alt="">
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="#"><h4>@Model.JobTitle</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <p> <i class="fa fa-map-marker"></i> @Model.Location</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-clock-o"></i> @Model.JobNature</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-home"></i> @Model.CompanyName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jobs_right">
+                            <div class="apply_now">
+                                <a class="heart_mark" href="#"> <i class="ti-heart"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="descript_wrap white-bg">
+                    <div class="single_wrap">
+                        <h4>Job description</h4>
+                        @*<p>@Model.JobContent</p>*@
+                        <p>@Html.Raw(HttpUtility.HtmlDecode(@Model.JobContent).ToString())</p>
+                    </div>
+
+                 
+
+                </div>
+
+               
+                <div class="apply_job_form white-bg">
+                    @if (ViewBag.result == "Error")
+                    {
+                        <h2 style="color:red;">You Are Already Applyed In This Job</h2>
+                    }
+                    else
+                    {
+                    <h4>Apply for this job</h4>
+                 
+
+                    <form action="#" id="AddForm" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            
+                            
+                          @using (Html.BeginForm("ApplyDetails", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button type="button" id="inputGroupFileAddon03">
+                                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" required name="upload" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                                            <label class="custom-file-label" for="inputGroupFile03">Upload CV</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input_field">
+                                        <textarea name="Mess" required id="" cols="30" rows="10" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="submit_btn">
+                                        @*<button class="boxed-btn3 w-100" type="submit">Apply Now</button>*@
+                                        @*<a onclick="myFunction()" href="@Url.Action("Index", "Home")" class="boxed-btn3 w-100">Apply Now</a>*@
+                                        <input type="submit" onclick="SaveForm()" class="boxed-btn3 w-100" value="Apply Now" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </form>
+                   }
+                </div>
+              
+            </div>
+            <div class="col-lg-4">
+                <div class="job_sumary">
+                    <div class="summery_header">
+                        <h3>Job Summery</h3>
+                    </div>
+                    <div class="job_content">
+                        <ul>
+                            <li>Published on: <span>@Model.publishon.Value.ToShortDateString()
+                                </span></li>
+
+                            <li>Salary: <span>@Model.Salary</span></li>
+                            <li>Location: <span>@Model.Location</span></li>
+                            <li>Job Nature: <span> @Model.JobNature</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script>
+    function SaveForm() {
+        alert("Success");
+    }
+    window.attachEvent('onload', myFunc);
+</script>*@

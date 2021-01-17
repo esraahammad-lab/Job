@@ -1,0 +1,96 @@
+﻿@model IEnumerable<JobApp.Models.Job>
+@{
+    ViewBag.Title = "ListJob";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+</style>
+
+
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+        
+            <div class="col-lg-12">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-lg-12">
+                                <div class="single_field">
+                                    <input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="job_lists m-0" id="DataSearching">
+                    <div class="row">
+                        @foreach (var item in Model)
+{
+    <div class="col-lg-12 col-md-12" id="myUL">
+        <div class="single_jobs white-bg d-flex justify-content-between">
+            <div class="jobs_left d-flex align-items-center">
+                <div class="thumb">
+                    <img src="~/Uploads/@Html.DisplayFor(modelItem =>item.JobImage ) " alt=" ">
+                </div>
+                <div class="jobs_conetent">
+                    <a href="@Url.Action("ApplyDetails", "Job", new { id=item.IDJob})"><h4>@item.JobTitle</h4></a>
+                    <div class="links_locat d-flex align-items-center">
+                        <div class="location">
+                            <p> <i class="fa fa-map-marker"></i>@item.Location</p>
+                        </div>
+                        <div class="location">
+                            <p> <i class="fa fa-clock-o"></i> @item.JobNature</p>
+                        </div>
+                        <div class="location">
+                            <p> <i class="fa fa-home"></i> @item.CompanyName</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jobs_right">
+                <div class="apply_now">
+                    <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
+                    <a href="@Url.Action("ApplyDetails", "Employee", new { id = item.IDJob })" class="boxed-btn3">Apply Now</a>
+                </div>
+                <div class="date">
+                    <p>Deadline: @item.Dateline.Value.ToShortDateString()</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#DataSearching, #myUL").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

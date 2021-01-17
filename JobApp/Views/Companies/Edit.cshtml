@@ -1,0 +1,164 @@
+﻿@model JobApp.Models.Job
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<div class="job_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="job_details_header">
+
+                </div>
+                @using (Html.BeginForm("Edit", "JobCRUD", FormMethod.Post, new { enctype = "multipart/form-data", id = Model.IDJob }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IDJob)
+
+                    <div class="apply_job_form white-bg">
+
+                        <h4 style="text-align: center; color: #0684f3">Posted New Job</h4>
+                        <div class="section-top-border">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+
+                                    <form action="#">
+                                        <div class=" mt-10">
+                                            <span>JobTitle</span>
+                                            <input type="text" value="@Model.JobTitle" name="JobTitle" placeholder="Job Title" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Job Title'" required class="single-input">
+                                        </div>
+                                        <br />
+                                        <div class=" mt-10">
+                                            <span>Company Name</span>
+                                            <input type="text" disabled value="@Session["na"]" name="CompanyName" required placeholder="Company Name" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Company Name'" class="single-input">
+                                        </div>
+                                        <br />
+                                        <div class=" mt-10">
+                                            <input type="text" id="Imgtext" value="@Model.JobImage" hidden/>
+                                            <input type="file" id="file" value="@Model.JobImage" name="upload" placeholder="Image" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Image'" required class="single-input">
+                                        </div>
+
+                                        <div class=" mt-10">
+                                            <p style="display:none;" >@Html.Raw(HttpUtility.HtmlDecode(Html.DisplayFor(model => model.JobContent, new { @id = "contentjob" }).ToString()))</p>
+                                            <textarea id="editor1" required name="JobContent" placeholder="Job Content" onfocus="this.placeholder = ''"
+                                                      onblur="this.placeholder = 'Job Title'" class="single-input"></textarea>
+
+                                        </div>
+                                        <div class=" mt-10">
+
+                                            <input type="text" name="Location" value="@Model.Location" placeholder="Location" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Location'" required class="single-input">
+                                        </div>
+                                        <div class=" mt-10">
+
+                                            <input type="text" name="Salary" value="@Model.Salary" placeholder="Salary" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Salary'" required class="single-input">
+                                        </div>
+
+                                        <div class=" mt-10">
+                                            <span>Deadline</span>
+                                            <span>
+                                                <input hidden type="datetime"  value="@Model.Dateline.Value.Day/@Model.Dateline.Value.Month/@Model.Dateline.Value.Year"  />
+                                                <input type="datetime"  value="@Model.Dateline.Value.Day/@Model.Dateline.Value.Month/@Model.Dateline.Value.Year" name="Dateline" required placeholder="date" onfocus="this.placeholder = ''"
+                                                       onblur="this.placeholder = 'date'" class="single-input">
+                                            </span>
+                                        </div><br />
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <input type="text" id="JobNatureCheck" value="@Model.JobNature" hidden />
+                                                     <input id="r1" name="JobNature" required value="@Model.JobNature" type="radio" /><b style="font-size:25px">Full Time </b> <br />
+                                                     <input id="r2" name="JobNature" required value="@Model.JobNature" type="radio" /><b style="font-size:25px">Part Time </b> <br />
+                                                     <input id="r3" name="JobNature" required value="@Model.JobNature" type="radio" /><b style="font-size:25px">Temporary </b><br />
+                                                     <input id="r4" name="JobNature" required value="@Model.JobNature" type="radio" /><b style="font-size:25px">Freelance </b><br />
+                                                    <input id="r5" name="JobNature" required value="@Model.JobNature" type="radio" /><b style="font-size:25px">Intership </b> 
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <br />
+                                        <div class="col-md-12">
+                                            <div class="submit_btn">
+                                                <button class="boxed-btn3 w-100" type="submit">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    
+     CKEDITOR.replace('editor1');
+     $(document).ready(function () {
+         debugger;
+         var che = $("#JobNatureCheck").val();
+
+
+
+         if (che == "full time") {
+             $('#r1').prop('checked', true);
+         }
+         else if (che == "part time") {
+             $('#r2').prop('checked', true);
+         }
+         else if (che == "temporary") {
+             $('#r3').prop('checked', true);
+         }
+         else if (che == "freelance") {
+             $('#r4').prop('checked', true);
+         }
+         else {
+             $('#r5').prop('checked', true);
+         }
+
+         // 
+        //var bb= console.log($('#DeadLine').val());
+        // $('#DeadLine').datetimepicker();
+        // var date = new Date("#DeadLine"); 
+        // var formattedDate = new Date("#DeadLine");
+        // var d = date.getDate();
+        // var m = date.getMonth();
+        // m += 1;  // JavaScript months are 0-11
+        // var y = date.getFullYear();
+         // $("#Imgtext").val(d + "." + m + "." + y);
+
+         var img = $('#Imgtext').val();
+         $("#file").val(img);
+         //var text = $("#contentjob").val();
+         //$('editor1').val(text);
+       
+     })
+     //var formattedDate = new Date("yourUnformattedOriginalDate");
+     //var d = formattedDate.getDate();
+     //var m = formattedDate.getMonth();
+     //m += 1;  // JavaScript months are 0-11
+     //var y = formattedDate.getFullYear();
+
+    //$("#ValueDadline").val(d + "." + m + "." + y);
+</script>

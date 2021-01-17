@@ -1,0 +1,93 @@
+﻿@model IEnumerable<JobApp.Models.Job>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout1.cshtml";
+}
+
+@*<h2>الصفحة الرئيسية</h2>*@
+
+@if (ViewBag.Pub == "NotPublisher")
+{
+    <br />
+    <h1 style="color:red;text-align:center;"> This Email Is Not Vaild For A Company</h1><br />
+    <h3 style ="color:black;text-align:center;">This email belongs to a employee  and not a company</h3>
+    <h3 style="color:black;text-align:center;">If you want to post a job for a company, you must log in as a company </h3><br /><br />
+}
+else
+{
+<div class="job_listing_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_title">
+                    @*<h4>Job Listing Your Posted</h4>*@
+                </div>
+            </div>
+          
+        </div>
+        
+        <div class="job_lists">
+            <h3 style="text-align:center;">Job Listing Your Posted</h3>
+            <br /><h4 style="text-align:center;color:blue;">
+                @Html.ActionLink("Create New Job", "Create")
+            </h4>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb">
+                                    <img src="~/Uploads/@Html.DisplayFor(modelItem => item.JobImage)" alt="">
+                                </div>
+                                <div class="jobs_conetent">
+                                    <a href="@Url.Action("JobDetails", "Companies", new { id = item.IDJob })"><h4>@Html.DisplayFor(modelItem => item.JobTitle)</h4></a>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-map-marker"></i> @Html.DisplayFor(modelItem => item.Location)</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.JobNature)</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-home"></i> @Html.DisplayFor(modelItem => item.CompanyName)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                  
+                               @{   
+                                  
+                    int cont=0;
+                    foreach (var b in item.ApplyForJob)
+                    {
+
+                        cont += 1;
+
+                    }
+                               <a href="@Url.Action("JobAppliers", "Companies", new { id = item.IDJob })" class="notification" ><i title="Who applying for this job" class="fa fa-bell w3-text-teal" style="font-size: 30px; color: #0fb6f0;"></i> <span title="The number of people applying for this job" class="badge">@cont</span></a>
+                }
+                        
+                                
+
+                                  
+                                   
+                                    <a href="@Url.Action("JobDetails", "Companies", new { id = item.IDJob })" class="boxed-btn3">Details</a>
+                                </div>
+                                <div class="date">
+                                    <p>Deadline: @Html.DisplayFor(modelItem => item.Dateline.Value.Day)/
+                                    @Html.DisplayFor(modelItem => item.Dateline.Value.Month)/
+                                    @Html.DisplayFor(modelItem => item.Dateline.Value.Year)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
